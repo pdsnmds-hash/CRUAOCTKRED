@@ -1,0 +1,15 @@
+<resources>
+    <string name="first_credit">First loan</string>
+    <string name="repeat_credit">Repeat loan</string>
+    <string name="rate">Interest rate</string>
+    <string name="term">Term</string>
+    <string name="decision_time">Decision</string>
+    <string name="age">Age</string>
+    <string name="get_money">Get money</string>
+    <string name="details">Details</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="compare">Compare</string>
+    <string name="remove_compare">Remove compare</string>
+    <string name="logo_description">Logo %1$s</string>
+</resources>

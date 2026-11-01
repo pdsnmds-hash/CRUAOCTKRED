@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Defaults; a product overrides any of these by declaring the same name. -->
+<resources>
+    <string name="sort_button">Sort</string>
+    <string name="sort_reset">Clear sorting</string>
+    <string name="sort_default">Default</string>
+    <string name="sort_amount_desc">Amount: high to low</string>
+    <string name="sort_amount_asc">Amount: low to high</string>
+    <string name="sort_rate_asc">Rate: low to high</string>
+    <string name="sort_rating_desc">Rating: high to low</string>
+</resources>

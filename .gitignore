@@ -1,0 +1,44 @@
+# Secrets and build output — never committed.
+.firebaserc
+.firebase/
+serviceAccountKey.json
+google-services.json
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+local.properties
+*.jks
+*.keystore
+signing.properties
+.DS_Store
+
+*-debug.log
+
+# Product upload signing material (backup separately).
+android/signing/
+
+# Release verification tools and disposable emulator.
+.release-avd/
+android/tools/bundletool-all-*.jar
+
+# Clean Codemagic checkout: never upload local outputs or private material to Git.
+**/build/
+**/.gradle/
+**/.kotlin/
+**/__pycache__/
+*.pyc
+*.apk
+*.aab
+*.apks
+*.zip
+*.jks
+*.keystore
+*.p12
+*.pfx
+*serviceAccount*.json
+*service-account*.json
+generated-signing/
+artifacts/
+.codemagic-validation/

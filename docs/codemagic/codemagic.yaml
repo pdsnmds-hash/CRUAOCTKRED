@@ -1,0 +1,46 @@
+# Ordinary signed AAB build. Enable only AFTER uploading the cloud-generated JKS.
+workflows:
+  my-crua-aab:
+    name: Кредити на картку - Signed AAB
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      java: 17
+      android_signing:
+        - my_crua_upload
+      groups:
+        - my_crua_runtime
+      vars:
+        DESIGN_VERSION: blue-ua-3
+    scripts:
+      - name: Configure exact Android SDK packages
+        script: |
+          set -eu
+          cd "$CM_BUILD_DIR"
+          python3 docs/codemagic/configure_sdk.py
+      - name: Restore Firebase and analytics configuration from secrets
+        script: |
+          set -eu
+          cd "$CM_BUILD_DIR"
+          python3 docs/codemagic/prepare_runtime.py
+      - name: Connect uploaded signing identity to Gradle
+        script: |
+          set -eu
+          cd "$CM_BUILD_DIR"
+          python3 docs/codemagic/prepare_signing.py
+      - name: Test, lint and build signed AAB
+        script: |
+          set -eu
+          cd "$CM_BUILD_DIR/android"
+          chmod +x gradlew
+          ./gradlew --no-daemon -PbuildBundle=true :app:testDebugUnitTest :app:lintDebug :app:bundleRelease
+      - name: Verify AAB signature, identity and four ABIs
+        script: |
+          set -eu
+          cd "$CM_BUILD_DIR"
+          python3 docs/codemagic/verify_aab.py android/app/build/outputs/bundle/release/app-release.aab
+    artifacts:
+      - android/app/build/outputs/bundle/release/*.aab
+      - android/app/build/outputs/mapping/release/mapping.txt
+      - android/app/build/reports/lint-results-debug.html
+      - android/app/build/reports/tests/testDebugUnitTest/**

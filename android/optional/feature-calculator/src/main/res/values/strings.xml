@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calculator_title">Loan estimate</string>
+    <string name="calculator_hint">A transparent estimate, not a credit offer</string>
+    <string name="amount">Amount</string>
+    <string name="days">Days</string>
+    <string name="estimated_total">Estimated total</string>
+    <string name="estimated_overpayment">Estimated interest cost</string>
+    <string name="per_day">Average/day</string>
+    <string name="preliminary_calculation">Results are for reference only. The lender confirms the final terms.</string>
+    <string name="daily_rate">Daily rate</string>
+</resources>

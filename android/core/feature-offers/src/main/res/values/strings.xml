@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- HomeScreen -->
+    <string name="loading">Updating offers…</string>
+    <string name="retry">Try again</string>
+    <string name="configuration_missing">The app is not connected to a data source.</string>
+    <string name="generic_error">Could not load data. Please try again.</string>
+    <string name="offline_banner">Offline · showing the latest saved data</string>
+    <string name="empty_title">No suitable offers yet</string>
+    <string name="empty_body">Verified offers will appear here.</string>
+    <string name="offers_count">%1$d offers</string>
+
+    <!-- DetailScreen -->
+    <string name="detail_title">Offer details</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="get_money">Get money</string>
+    <string name="provider_redirect_hint">You\'ll continue on the partner\'s website</string>
+    <string name="key_terms">Key terms</string>
+    <string name="first_credit">First loan</string>
+    <string name="repeat_credit">Repeat loan</string>
+    <string name="rate">Interest rate</string>
+    <string name="term">Term</string>
+    <string name="decision_time">Decision</string>
+    <string name="age">Age</string>
+    <string name="available_up_to">Available up to</string>
+    <string name="decision_in">Decision in %1$s</string>
+    <string name="cost_details">Loan costs</string>
+    <string name="apr">APR</string>
+    <string name="about_lender">About the lender</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <string name="website">Website</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="legal_entity">Legal entity</string>
+    <string name="license">License</string>
+    <string name="legal_disclaimer">The mobile application is an aggregator of financial products and does not require a licence to conduct such activities.\n\nThe listed organisations are included in the register of the National Bank of Ukraine.\n\nThe mobile application is not a lender and does not issue loans, nor is it responsible for any agreements entered into or their terms. Borrow and repay responsibly.</string>
+    <string name="unit_currency">zł</string>
+    <string name="unit_days">days</string>
+    <string name="unit_years">years</string>
+    <string name="range_from">from %1$s %2$s</string>
+    <string name="range_to">up to %1$s %2$s</string>
+    <string name="apr_calculation">APR calculation example</string>
+    <string name="premium_company">Інформація про компанію</string>
+    <string name="premium_company_hint">Перевірте юридичні відомості та умови на офіційних ресурсах кредитора.</string>
+    <string name="premium_contacts">Контакти та сайт</string>
+    <string name="premium_documents">Юридичні відомості та документи</string>
+    <string name="premium_missing">Кредитор ще не надав ці відомості.</string>
+    <string name="premium_open">Відкрити</string>
+    <string name="premium_copy">Копіювати</string>
+    <string name="premium_no_link">Посилання кредитора поки недоступне</string>
+</resources>

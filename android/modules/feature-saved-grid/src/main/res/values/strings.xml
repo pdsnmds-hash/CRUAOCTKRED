@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Saved-specific strings -->
+    <string name="saved_title">Saved offers</string>
+    <string name="saved_empty">Offers you save will appear here on this device.</string>
+    <string name="saved_count">%1$d saved</string>
+    <string name="remove_saved">Remove from saved</string>
+
+    <!-- Action labels (needed for own R class under nonTransitiveRClass) -->
+    <string name="details">Details</string>
+    <string name="get_money">Get money</string>
+    <string name="compare">Compare</string>
+    <string name="compared">In comparison</string>
+    <string name="remove_compare">Remove from comparison</string>
+</resources>

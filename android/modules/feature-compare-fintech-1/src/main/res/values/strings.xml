@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cft1_compare_title">Сравнение</string>
+    <string name="cft1_compare_subtitle">Предварительный расчёт</string>
+    <string name="cft1_amount">Сумма</string>
+    <string name="cft1_days_label">Срок</string>
+    <string name="cft1_days">%1$d дней</string>
+    <string name="cft1_rate">Ставка</string>
+    <string name="cft1_overpayment">Переплата</string>
+    <string name="cft1_total">К возврату</string>
+    <string name="cft1_difference">Разница в возврате: %1$s</string>
+    <string name="cft1_unavailable">Расчёт недоступен</string>
+    <string name="cft1_missing_note">Нет общих условий для расчёта. Уточните условия офферов.</string>
+    <string name="cft1_no_value">—</string>
+    <string name="cft1_vs">VS</string>
+    <string name="cft1_replace">Заменить предложение</string>
+    <string name="cft1_replace_offer">Заменить %1$s</string>
+    <string name="cft1_compare_empty_title">Выберите два предложения</string>
+    <string name="cft1_compare_empty">Добавьте предложения в сравнение на главной странице.</string>
+    <string name="cft1_browse_offers">Выбрать предложения</string>
+    <string name="cft1_custom_value">Другое значение…</string>
+    <string name="cft1_allowed_range">Допустимо: %1$d–%2$d</string>
+    <string name="cft1_apply">Применить</string>
+    <string name="cft1_cancel">Отмена</string>
+    <string name="cft1_best_offer">Самый выгодный среди сравниваемых при выбранных сумме и сроке</string>
+    <string name="cft1_best_offer_compact">Самый выгодный среди сравниваемых</string>
+</resources>

@@ -1,0 +1,7 @@
+{
+  "clean_checkout_gradle_signing_report": "PASS",
+  "debug_signing": "standard Android debug signing",
+  "private_project_files_copied": false,
+  "release_application_build": "NOT RUN",
+  "cloud_build": "NOT RUN"
+}

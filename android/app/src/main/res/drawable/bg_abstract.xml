@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Abstract brand backdrop: concentric ring clusters in the product palette.
+  Stroked paths and flat fills only (no gradients), so it renders identically as a
+  window background on every supported API and via painterResource in Compose.
+  Single source of truth for the app backdrop AND the pre-Android-12 splash.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="800dp"
+    android:viewportWidth="360"
+    android:viewportHeight="800">
+
+    <!-- base -->
+    <path android:fillColor="#F2FAFF" android:pathData="M0,0 H360 V800 H0 Z" />
+
+    <!-- soft discs for depth -->
+    <path android:fillColor="#0095FF" android:fillAlpha="0.07" android:pathData="M-35,430 a95,95 0 1,0 190,0 a95,95 0 1,0 -190,0" />
+    <path android:fillColor="#0095FF" android:fillAlpha="0.06" android:pathData="M245,560 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0" />
+
+    <!-- ring cluster, top right -->
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.4"
+        android:fillColor="@android:color/transparent" android:pathData="M270,70 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0" />
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.32"
+        android:fillColor="@android:color/transparent" android:pathData="M225,70 a115,115 0 1,0 230,0 a115,115 0 1,0 -230,0" />
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.25"
+        android:fillColor="@android:color/transparent" android:pathData="M180,70 a160,160 0 1,0 320,0 a160,160 0 1,0 -320,0" />
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.19"
+        android:fillColor="@android:color/transparent" android:pathData="M135,70 a205,205 0 1,0 410,0 a205,205 0 1,0 -410,0" />
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.13"
+        android:fillColor="@android:color/transparent" android:pathData="M90,70 a250,250 0 1,0 500,0 a250,250 0 1,0 -500,0" />
+    <path android:strokeColor="#0095FF" android:strokeWidth="2" android:strokeAlpha="0.08"
+        android:fillColor="@android:color/transparent" android:pathData="M45,70 a295,295 0 1,0 590,0 a295,295 0 1,0 -590,0" />
+
+    <!-- ring cluster, bottom left -->
+    <path android:strokeColor="#0066CC" android:strokeWidth="2" android:strokeAlpha="0.3"
+        android:fillColor="@android:color/transparent" android:pathData="M-40,760 a60,60 0 1,0 120,0 a60,60 0 1,0 -120,0" />
+    <path android:strokeColor="#0066CC" android:strokeWidth="2" android:strokeAlpha="0.24"
+        android:fillColor="@android:color/transparent" android:pathData="M-85,760 a105,105 0 1,0 210,0 a105,105 0 1,0 -210,0" />
+    <path android:strokeColor="#0066CC" android:strokeWidth="2" android:strokeAlpha="0.18"
+        android:fillColor="@android:color/transparent" android:pathData="M-130,760 a150,150 0 1,0 300,0 a150,150 0 1,0 -300,0" />
+    <path android:strokeColor="#0066CC" android:strokeWidth="2" android:strokeAlpha="0.12"
+        android:fillColor="@android:color/transparent" android:pathData="M-175,760 a195,195 0 1,0 390,0 a195,195 0 1,0 -390,0" />
+    <path android:strokeColor="#0066CC" android:strokeWidth="2" android:strokeAlpha="0.07"
+        android:fillColor="@android:color/transparent" android:pathData="M-220,760 a240,240 0 1,0 480,0 a240,240 0 1,0 -480,0" />
+
+    <!-- amber accents -->
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.4" android:pathData="M295,300 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.28" android:pathData="M63,250 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.34" android:pathData="M244,628 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path android:fillColor="#F59E0B" android:fillAlpha="0.22" android:pathData="M125,690 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+
+</vector>

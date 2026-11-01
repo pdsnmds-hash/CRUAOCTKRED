@@ -1,0 +1,17 @@
+{
+  "yaml_and_shell_syntax": "PASS",
+  "generator_missing_secrets_rejected_without_generating_key": "PASS",
+  "signing_bridge_permissions_paths_no_overwrite_missing_env": "PASS",
+  "java_properties_unicode_special_character_roundtrip": "PASS",
+  "sdk_newest_revision_exact_packages_failure_and_missing_tool": "PASS",
+  "runtime_configuration_missing_invalid_package_no_overwrite_and_roundtrip": "PASS",
+  "verifier_signed_four_abi_fixture_unsigned_missing_abi_private_file_rejection": "PASS",
+  "verifier_wrong_identity_and_unsigned_entries_rejection": "PASS",
+  "temporary_git_index_ignore_rules_and_wrapper_inclusion": "PASS",
+  "existing_private_keys_and_runtime_configuration": "UNCHANGED",
+  "temporary_fixture_keys": "DELETED",
+  "production_key_generation_on_mac": "NOT RUN",
+  "cloud_build": "NOT RUN",
+  "real_git_staged_files": "NOT AVAILABLE: project is not a Git repository",
+  "application_build_in_clean_checkout": "NOT RUN; local checks validate CI helpers, not the cloud application build"
+}

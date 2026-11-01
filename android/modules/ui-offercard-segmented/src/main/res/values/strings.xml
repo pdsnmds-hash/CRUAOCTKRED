@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Defaults; a product overrides any of these by declaring the same name. -->
+<resources>
+    <string name="first_credit">First loan</string>
+    <string name="term">Term</string>
+    <string name="age">Age</string>
+    <string name="decision_time">Decision</string>
+    <string name="compare">Compare</string>
+    <string name="remove_compare">Remove from comparison</string>
+    <string name="save">Save</string>
+    <string name="remove_saved">Remove from saved</string>
+    <string name="get_money">Get money</string>
+    <string name="details">Details</string>
+    <string name="amount">Amount</string>
+    <string name="offer_daily_rate">Rate</string>
+    <string name="offer_open">Open\noffer</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading">Loading…</string>
+    <string name="generic_error">Could not load data. Please try again.</string>
+    <string name="retry">Try again</string>
+    <string name="rules_title">Information</string>
+    <string name="rules_empty">Content is being updated.</string>
+    <string name="offline_banner">No connection · showing last saved content</string>
+</resources>
