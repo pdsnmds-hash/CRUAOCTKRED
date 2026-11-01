@@ -12,7 +12,7 @@ workflows:
         - my_crua_runtime
       vars:
         DESIGN_VERSION: blue-ua-3
-    caching:
+    cache:
       cache_paths:
         - $HOME/.gradle/caches/modules-2
         - $HOME/.gradle/wrapper

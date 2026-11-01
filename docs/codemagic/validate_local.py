@@ -46,6 +46,8 @@ with tempfile.TemporaryDirectory(prefix='crua-ci-validation-') as directory:
     generate = configurations[str(HERE / 'generate-upload-key.yaml')]['workflows']['my_crua-create-upload-key-once']
     ordinary = configurations[str(HERE / 'codemagic.yaml')]['workflows']['my-crua-aab']
     assert ordinary['environment']['android_signing'] == ['my_crua_upload']
+    assert 'caching' not in ordinary
+    assert ordinary['cache']['cache_paths'] == ['$HOME/.gradle/caches/modules-2', '$HOME/.gradle/wrapper']
     assert not any('.jks' in pattern for pattern in ordinary['artifacts'])
     assert 'docs/codemagic/build_android.py' in str(ordinary['scripts'])
     call([sys.executable, '-m', 'unittest', 'discover', '-s', str(HERE), '-p', 'test_build_android.py'])
