@@ -38,7 +38,7 @@ git push -u origin main
 
 ## 2. Одноразово создать ключ НА Codemagic
 
-**Корневой `codemagic.yaml` сейчас содержит только генератор** `my_crua-create-upload-key-once`. Его сохранённая копия — `docs/codemagic/generate-upload-key.yaml`.
+Для этапа генерации используется `my_crua-create-upload-key-once` из `docs/codemagic/generate-upload-key.yaml`. В текущей рабочей копии корневой `codemagic.yaml` уже переключён на обычную AAB-сборку; повторно генерировать ключ не нужно.
 
 1. Подключите Git-репозиторий через Codemagic Applications → Add application.
 2. В Environment variables создайте группу **`my_crua_key_generation`**.
@@ -131,10 +131,19 @@ git push
 
 Результаты helpers — `local-validation.json`. Отдельно `clean-checkout-validation.json` подтверждает успешный `:app:signingReport` в чистой временной копии Android без приватных файлов проекта: выбрана стандартная debug-подпись. Полная сборка приложения в этой копии не запускалась.
 
-Реальный облачный build: **NOT RUN**. Нужны фактические build status, commit и артефакты Codemagic после запуска пользователем.
+Первый облачный AAB build выполнен пользователем и остановился на проверке runtime values (01.11.2026). Пересборка после исправления здесь не запускалась. Актуальная граница проверки — в `cloud-status.json`; нужны фактический успешный build status, commit и артефакты Codemagic.
 
 Официальные источники:
 - https://docs.codemagic.io/yaml-code-signing/signing-android/
 - https://docs.codemagic.io/yaml-quick-start/building-a-native-android-app/
 - https://developer.android.com/studio/publish/app-signing
 - https://dl.google.com/android/repository/repository2-3.xml
+
+
+## Ошибка runtime values (01.11.2026)
+
+Первый облачный AAB build, показанный пользователем, остановился на `prepare_runtime.py`: в одном из значений аналитики или дизайн-версии оказалась кавычка, обратный слеш либо управляющий символ. Локальный скрипт теперь удаляет только пробельные символы по краям и называет проблемную переменную без вывода значения. Внутренние переносы и кавычки по-прежнему отклоняются.
+
+В группе `my_crua_runtime` укажите URL Binom целиком в одну строку, без кавычек, обратных слешей перед `&` и префикса `BINOM_ANALYTICS_URL=`. Дизайн-версия в YAML — `blue-ua-3`; лишнее переопределение в UI не требуется. Отправьте исправленные Python scripts в Git перед новой сборкой. Генератор ключа повторно запускать не нужно.
+
+Текущее состояние облака фиксируется в `cloud-status.json`; после исправления облачная пересборка здесь не запускалась. Корневой YAML уже переключён пользователем на обычную AAB-сборку, а не генератор.

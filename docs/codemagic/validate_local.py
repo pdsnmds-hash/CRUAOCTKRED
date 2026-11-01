@@ -42,8 +42,8 @@ with tempfile.TemporaryDirectory(prefix='crua-ci-validation-') as directory:
         for workflow in config['workflows'].values():
             for script in workflow['scripts']:
                 call(['bash', '-n'], input=script['script'])
-    assert (ROOT / 'codemagic.yaml').read_bytes() == (HERE / 'generate-upload-key.yaml').read_bytes()
-    generate = configurations[str(ROOT / 'codemagic.yaml')]['workflows']['my_crua-create-upload-key-once']
+    assert (ROOT / 'codemagic.yaml').read_bytes() in [(HERE / 'generate-upload-key.yaml').read_bytes(), (HERE / 'codemagic.yaml').read_bytes()]
+    generate = configurations[str(HERE / 'generate-upload-key.yaml')]['workflows']['my_crua-create-upload-key-once']
     ordinary = configurations[str(HERE / 'codemagic.yaml')]['workflows']['my-crua-aab']
     assert ordinary['environment']['android_signing'] == ['my_crua_upload']
     assert not any('.jks' in pattern for pattern in ordinary['artifacts'])
@@ -122,7 +122,12 @@ for(String k: new TreeSet<>(p.stringPropertyNames())) System.out.println(k+"\\t"
     wrong = json.loads(json.dumps(firebase)); wrong['client'][0]['client_info']['android_client_info']['package_name'] = 'other.package'
     helper('prepare_runtime.py', dict(runtime_env, GOOGLE_SERVICES_JSON_BASE64=base64.b64encode(json.dumps(wrong).encode()).decode()), ok=False)
     helper('prepare_runtime.py', dict(runtime_env, BINOM_ANALYTICS_URL='http://tracker.example'), ok=False)
-    helper('prepare_runtime.py', runtime_env)
+    for name in ['APPSFLYER_DEV_KEY', 'BINOM_ANALYTICS_URL', 'DESIGN_VERSION']:
+        for suffix in ['"', '\\', '\ninside', '\tinside']:
+            result = helper('prepare_runtime.py', dict(runtime_env, **{name: runtime_env[name] + suffix}), ok=False)
+            assert name in result.stderr
+            assert runtime_env[name] not in result.stderr
+    helper('prepare_runtime.py', {key: (' \r\n' + value + '\r\n ') if key in ['APPSFLYER_DEV_KEY', 'BINOM_ANALYTICS_URL', 'DESIGN_VERSION'] else value for key, value in runtime_env.items()})
     firebase_file = checkout / 'android/app/google-services.json'
     assert firebase_file.stat().st_mode & 0o777 == 0o600
     assert json.loads(firebase_file.read_bytes()) == firebase
@@ -132,6 +137,7 @@ for(String k: new TreeSet<>(p.stringPropertyNames())) System.out.println(k+"\\t"
     assert fields['sdk.dir'] == str(sdk)
     for name in ['APPSFLYER_DEV_KEY', 'BINOM_ANALYTICS_URL', 'DESIGN_VERSION']: assert fields[name] == runtime_env[name]
     report['runtime_configuration_missing_invalid_package_no_overwrite_and_roundtrip'] = 'PASS'
+    report['runtime_trim_outer_whitespace_and_redacted_named_errors'] = 'PASS'
 
     fixture_env = dict(ENV, CM_KEYSTORE_PATH=str(temp / 'fixture.jks'), CM_KEYSTORE_PASSWORD='TemporaryStore123!', CM_KEY_ALIAS='fixture', CM_KEY_PASSWORD='TemporaryKey123!')
     call([JAVA / 'bin/keytool', '-genkeypair', '-noprompt', '-storetype', 'JKS', '-keystore', fixture_env['CM_KEYSTORE_PATH'],
@@ -180,8 +186,15 @@ assert all(p.exists() and hashlib.sha256(p.read_bytes()).digest() == value for p
 report['existing_private_keys_and_runtime_configuration'] = 'UNCHANGED'
 report['temporary_fixture_keys'] = 'DELETED'
 report['production_key_generation_on_mac'] = 'NOT RUN'
-report['cloud_build'] = 'NOT RUN'
-report['real_git_staged_files'] = 'NOT AVAILABLE: project is not a Git repository'
+report['cloud_build'] = 'See cloud-status.json; local validation does not execute Codemagic'
+git_state = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', '--is-inside-work-tree'], capture_output=True, text=True)
+if git_state.returncode == 0:
+    staged = subprocess.check_output(['git', '-C', str(ROOT), 'diff', '--cached', '--name-only'], text=True).splitlines()
+    forbidden = ['.jks', '.keystore', 'google-services.json', 'local.properties', 'signing.properties', 'serviceAccountKey.json']
+    assert not any(path.endswith(tuple(forbidden)) for path in staged), 'Private configuration is staged; remove it before committing'
+    report['real_git_staged_files'] = f'CHECKED: {len(staged)} paths; no signing/runtime secrets'
+else:
+    report['real_git_staged_files'] = 'NOT AVAILABLE: project is not a Git repository' 
 report['application_build_in_clean_checkout'] = 'NOT RUN; local checks validate CI helpers, not the cloud application build'
 (HERE / 'local-validation.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

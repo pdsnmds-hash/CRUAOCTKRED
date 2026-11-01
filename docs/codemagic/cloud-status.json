@@ -1,0 +1,11 @@
+{
+  "observed_date": "2026-11-01",
+  "source": "user-provided Codemagic screenshot",
+  "workflow": "my-crua-aab",
+  "status": "FAILED",
+  "step": "Restore Firebase and analytics configuration from secrets",
+  "reason": "Runtime values contain unsupported quote, backslash or control characters",
+  "build_id": null,
+  "commit": null,
+  "rebuild_after_runtime_input_fix": "NOT RUN BY ASSISTANT"
+}

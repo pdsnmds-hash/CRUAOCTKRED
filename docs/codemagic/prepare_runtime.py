@@ -33,17 +33,35 @@ def main():
             raise ValueError()
     except (ValueError, KeyError, TypeError):
         raise SystemExit('Invalid Firebase configuration or Android package mismatch') from None
-    url = os.environ['BINOM_ANALYTICS_URL']
-    parsed = urlsplit(url)
-    if parsed.scheme != 'https' or not parsed.hostname or parsed.username or parsed.password:
+    # Copy/paste from the UI often adds a final newline. Trim edges only;
+    # never remove characters from the middle of a URL or change its meaning.
+    values = {key: os.environ[key].strip() for key in ['APPSFLYER_DEV_KEY', 'BINOM_ANALYTICS_URL']}
+    values['DESIGN_VERSION'] = os.environ.get('DESIGN_VERSION', 'blue-ua-3').strip()
+    for name, value in values.items():
+        if not value:
+            raise SystemExit(f'{name} is empty after trimming whitespace')
+        problems = []
+        if '"' in value:
+            problems.append('double quote')
+        if "\\" in value:
+            problems.append('backslash')
+        if any(ord(char) < 32 or ord(char) == 127 for char in value):
+            problems.append('embedded line break or control character')
+        if problems:
+            raise SystemExit(f'Invalid {name}: contains ' + ', '.join(problems)
+                             + '. Paste the raw value on one line, without surrounding quotes or shell escaping. Value is not logged.')
+    url = values['BINOM_ANALYTICS_URL']
+    if any(char.isspace() for char in url):
+        raise SystemExit('Invalid BINOM_ANALYTICS_URL: contains embedded whitespace. Paste the complete URL on one line.')
+    try:
+        parsed = urlsplit(url)
+        valid_url = parsed.scheme == 'https' and bool(parsed.hostname) and not parsed.username and not parsed.password
+    except ValueError:
+        valid_url = False
+    if not valid_url:
         raise SystemExit('BINOM_ANALYTICS_URL must be a valid HTTPS tracker URL')
-    if not os.environ['APPSFLYER_DEV_KEY'].isalnum():
-        raise SystemExit('APPSFLYER_DEV_KEY must contain only letters and digits')
-    values = {key: os.environ[key] for key in ['APPSFLYER_DEV_KEY', 'BINOM_ANALYTICS_URL']}
-    values['DESIGN_VERSION'] = os.environ.get('DESIGN_VERSION', 'blue-ua-3')
-    # Gradle interpolates these fields as Java strings; forbid quote/control injection.
-    if any(any(ch in value for ch in ['"', '\\', '\n', '\r', '\x00']) for value in values.values()):
-        raise SystemExit('Runtime values contain unsupported quote, backslash or control characters')
+    if not values['APPSFLYER_DEV_KEY'].isascii() or not values['APPSFLYER_DEV_KEY'].isalnum():
+        raise SystemExit('APPSFLYER_DEV_KEY must contain only ASCII letters and digits')
     with firebase.open('xb') as stream:
         firebase.chmod(0o600)
         stream.write(raw)
