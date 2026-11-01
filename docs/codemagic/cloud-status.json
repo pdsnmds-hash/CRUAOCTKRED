@@ -4,8 +4,16 @@
   "workflow": "my-crua-aab",
   "status": "FAILED",
   "step": "Test, lint and build signed AAB",
-  "reason": "Maven Central HTTP 429 downloading org.robolectric:nativeruntime-dist-compat:1.0.19 before unit test execution",
+  "reason": "Maven Central HTTP 429 for Robolectric persisted after bounded retries",
   "build_id": null,
   "commit": null,
-  "rebuild_after_bounded_retry_fix": "NOT RUN BY ASSISTANT"
+  "rebuild_after_bounded_retry_fix": "NOT RUN BY ASSISTANT",
+  "rebuild_after_robolectric_mirror_fix": "NOT RUN BY ASSISTANT",
+  "local_robolectric_mirror_validation": {
+    "task": ":app:testDebugUnitTest",
+    "status": "PASS",
+    "tests": 29,
+    "failures": 0,
+    "native_runtime_sha256_matches_mirror": true
+  }
 }

@@ -81,7 +81,14 @@ android {
         }
     }
 
-    testOptions { unitTests.isIncludeAndroidResources = true }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            // Robolectric also downloads Android runtime jars outside Gradle.
+            it.systemProperty("robolectric.dependency.repo.url",
+                "https://maven-central.storage-download.googleapis.com/maven2/")
+        }
+    }
 
     buildFeatures {
         compose = true

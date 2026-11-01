@@ -155,3 +155,9 @@ git push
 Codemagic сохраняет `$HOME/.gradle/caches/modules-2` и `$HOME/.gradle/wrapper`. Кэш зависимостей не очищается; подписи и runtime secrets в него специально не добавляются. Продолжительное ограничение со стороны Maven Central всё ещё может остановить сборку: тогда потребуется повторить её позже. Предупреждения deprecated из показанного лога не были причиной остановки.
 
 Поведение повторов проверяется без сети и ожидания в `test_build_android.py`, включая успешный повтор, исчерпание попыток и остановку на настоящих ошибках проверок. Локальная проверка helpers не заменяет реальную облачную сборку.
+
+## Постоянный HTTP 429 для Robolectric
+
+После исчерпания повторов в облаке Maven Central по-прежнему вернул HTTP 429 для `org.robolectric:nativeruntime-dist-compat:1.0.19`. В `android/settings.gradle.kts` группа `org.robolectric` направлена через `exclusiveContent` в HTTPS-зеркало Central на Google Cloud Storage: `https://maven-central.storage-download.googleapis.com/maven2/`. Это ограничение группы также исключает попытку скачать её JAR из ранее использованного Central при наличии старого кэша. Остальные группы и репозитории остаются прежними.
+
+В `android/app/build.gradle.kts` тот же URL указан через `robolectric.dependency.repo.url`: Robolectric загружает Android runtime также самостоятельно, вне механизма зависимостей Gradle. Версии, подпись и проверки тестов не изменены. Зеркало размещено на GCS, но не является официально поддерживаемым продуктом Google: https://maven-central.storage.googleapis.com/index.html. Документация runtime property: https://robolectric.org/configuring/.

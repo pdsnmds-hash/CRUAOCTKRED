@@ -10,6 +10,17 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        // Route Robolectric exclusively to the GCS Central mirror: CI's
+        // shared IP can be rate-limited by repo.maven.apache.org.
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "RobolectricCentralMirror"
+                    url = uri("https://maven-central.storage-download.googleapis.com/maven2/")
+                }
+            }
+            filter { includeGroup("org.robolectric") }
+        }
         mavenCentral()
     }
 }
