@@ -47,7 +47,9 @@ with tempfile.TemporaryDirectory(prefix='crua-ci-validation-') as directory:
     ordinary = configurations[str(HERE / 'codemagic.yaml')]['workflows']['my-crua-aab']
     assert ordinary['environment']['android_signing'] == ['my_crua_upload']
     assert not any('.jks' in pattern for pattern in ordinary['artifacts'])
-    assert '-PbuildBundle=true' in str(ordinary['scripts'])
+    assert 'docs/codemagic/build_android.py' in str(ordinary['scripts'])
+    call([sys.executable, '-m', 'unittest', 'discover', '-s', str(HERE), '-p', 'test_build_android.py'])
+    report['central_429_bounded_retry_and_fail_fast_gates'] = 'PASS'
     assert generate['environment']['groups'] == ['my_crua_key_generation']
     script = generate['scripts'][0]['script']
     missing_generator = call(['bash', '-c', script], env=dict(ENV, CM_BUILD_DIR=str(temp)), ok=False)

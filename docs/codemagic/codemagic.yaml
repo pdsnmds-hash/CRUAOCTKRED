@@ -12,6 +12,10 @@ workflows:
         - my_crua_runtime
       vars:
         DESIGN_VERSION: blue-ua-3
+    caching:
+      cache_paths:
+        - $HOME/.gradle/caches/modules-2
+        - $HOME/.gradle/wrapper
     scripts:
       - name: Configure exact Android SDK packages
         script: |
@@ -31,9 +35,8 @@ workflows:
       - name: Test, lint and build signed AAB
         script: |
           set -eu
-          cd "$CM_BUILD_DIR/android"
-          chmod +x gradlew
-          ./gradlew --no-daemon -PbuildBundle=true :app:testDebugUnitTest :app:lintDebug :app:bundleRelease
+          cd "$CM_BUILD_DIR"
+          python3 docs/codemagic/build_android.py
       - name: Verify AAB signature, identity and four ABIs
         script: |
           set -eu

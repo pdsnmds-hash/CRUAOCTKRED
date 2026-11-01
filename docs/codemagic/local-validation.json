@@ -1,4 +1,5 @@
 {
+  "central_429_bounded_retry_and_fail_fast_gates": "PASS",
   "yaml_and_shell_syntax": "PASS",
   "generator_missing_secrets_rejected_without_generating_key": "PASS",
   "signing_bridge_permissions_paths_no_overwrite_missing_env": "PASS",
